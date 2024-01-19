@@ -15,7 +15,6 @@ module C = struct
   [@entry] let increment (delta : int) (store : storage) : result = [], { store with value=store.value + delta }
   [@entry] let decrement (delta : int) (store : storage) : result = [], { store with value=store.value - delta }
   [@entry] let reset () (store : storage) : result = 
-    // let () = assert_with_error (store.admin = (Tezos.get_sender())) Errors.not_admin in 
-    let () = failwith (Errors.not_admin, 43) in
+    let () = assert_with_error (store.admin = (Tezos.get_sender())) Errors.not_admin in 
     [], { store with value=0 }
 end
