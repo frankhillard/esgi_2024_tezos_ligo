@@ -21,11 +21,15 @@ compile: ## compile contracts to Michelson
 	@mkdir -p compiled
 	@$(call compile,counter.mligo,counter.tz, -m C)
 	@$(call compile,exo_1.mligo,exo_1.tz, -m C)
+	@$(call compile,exo_2.mligo,exo_2.tz, -m C)
+
 
 test: ## run tests (SUITE=asset_approve make test)
 ifndef SUITE
 	@$(call test,counter.test.mligo)
 	@$(call test,exo_1.test.mligo)
+	@$(call test,exo_2.test.mligo)
+
 else
 	@$(call test,$(SUITE).test.mligo)
 endif
