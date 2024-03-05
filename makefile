@@ -30,6 +30,7 @@ ifndef SUITE
 	@$(call test,counter.test.mligo)
 	@$(call test,exo_1.test.mligo)
 	@$(call test,exo_2.test.mligo)
+# @$(call test,zipwith.test.mligo)
 
 else
 	@$(call test,$(SUITE).test.mligo)
