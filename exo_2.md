@@ -1,6 +1,6 @@
 ## Exercice 2
 
-Vote contract 
+Counter contract 
 
 ### Setup
 You can start from the [exo_1_solution](lib/exo_1_solution.mligo) implementation of contract and tests.
