@@ -6,6 +6,7 @@ module C = struct
         ledger : register;
         total_supply : nat;
         admin : address;
+        limit_date : timestamp;
     }
 
     type result = operation list * storage
@@ -15,12 +16,14 @@ module C = struct
     let not_found = "Balance not found"
     let no_money = "Not enough money in bank"
     let no_more_supply = "Not enough money in supply"
+    let too_late = "Too late bruh"
   end
 
     let updateValue(m,key,value:register*address*nat):register = Big_map.update key (Some value) m
 
     [@entry] let mint (amount,addr: nat*address) (store : storage) : result =
         let _ = assert_with_error (Tezos.get_sender() = store.admin) Errors.not_admin in
+        let _ = assert_with_error (Tezos.get_now() < store.limit_date) Errors.too_late in
         let store = { store with ledger = updateValue(store.ledger,addr,amount); total_supply = store.total_supply + amount } in
         [],store
 
@@ -40,6 +43,7 @@ module C = struct
 
     [@entry] let burn (amount:nat) (store: storage) : result =
         let _ = assert_with_error (Tezos.get_sender() = store.admin) Errors.not_admin in
+        let _ = assert_with_error (Tezos.get_now() < store.limit_date) Errors.too_late in
         let _ = assert_with_error (store.total_supply >= amount) Errors.no_more_supply in
         [],{store with total_supply = abs(store.total_supply - amount)}
 end
