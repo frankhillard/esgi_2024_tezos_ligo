@@ -22,6 +22,7 @@ compile: ## compile contracts to Michelson
 	@$(call compile,counter.mligo,counter.tz, -m C)
 	@$(call compile,exo_1.mligo,exo_1.tz, -m C)
 	@$(call compile,exo_2.mligo,exo_2.tz, -m C)
+	@$(call compile,exo_4.mligo,exo_4.tz, -m C)
 	@$(call compile,exo_2.mligo,exo_2.mligo.json, -m C --michelson-format json)
 
 
@@ -30,6 +31,7 @@ ifndef SUITE
 	@$(call test,counter.test.mligo)
 	@$(call test,exo_1.test.mligo)
 	@$(call test,exo_2.test.mligo)
+	@$(call test,exo_4.test.mligo)
 
 else
 	@$(call test,$(SUITE).test.mligo)
