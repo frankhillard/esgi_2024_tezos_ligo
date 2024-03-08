@@ -17,4 +17,6 @@ module C = struct
   [@entry] let reset () (store : storage) : result = 
     let () = assert_with_error (store.admin = (Tezos.get_sender())) Errors.not_admin in 
     [], { store with value=0 }
+
+  [@view] let show () (store:storage) : int = store.value
 end
